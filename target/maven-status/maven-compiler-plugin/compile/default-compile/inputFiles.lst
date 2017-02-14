@@ -1,0 +1,14 @@
+/Users/fabrice/IdeaProjects/Book store/src/main/java/com/ilboudofabrice/dao/ShoppingCartDAO.java
+/Users/fabrice/IdeaProjects/Book store/src/main/java/com/ilboudofabrice/service/ShoppingCartService.java
+/Users/fabrice/IdeaProjects/Book store/src/main/java/com/ilboudofabrice/controller/ShoppingCartController.java
+/Users/fabrice/IdeaProjects/Book store/src/main/java/com/ilboudofabrice/dao/impl/ShoppingCartDAOImpl.java
+/Users/fabrice/IdeaProjects/Book store/src/main/java/com/ilboudofabrice/controller/HomeController.java
+/Users/fabrice/IdeaProjects/Book store/src/main/java/com/ilboudofabrice/service/impl/ShoppingCartServiceImpl.java
+/Users/fabrice/IdeaProjects/Book store/src/main/java/com/ilboudofabrice/dao/BookDAO.java
+/Users/fabrice/IdeaProjects/Book store/src/main/java/com/ilboudofabrice/service/impl/BookServiceImpl.java
+/Users/fabrice/IdeaProjects/Book store/src/main/java/com/ilboudofabrice/dao/impl/BookDAOImpl.java
+/Users/fabrice/IdeaProjects/Book store/src/main/java/com/ilboudofabrice/dto/ShoppingCartItemDTO.java
+/Users/fabrice/IdeaProjects/Book store/src/main/java/com/ilboudofabrice/service/BookService.java
+/Users/fabrice/IdeaProjects/Book store/src/main/java/com/ilboudofabrice/domain/Book.java
+/Users/fabrice/IdeaProjects/Book store/src/main/java/com/ilboudofabrice/util/DataBaseException.java
+/Users/fabrice/IdeaProjects/Book store/src/main/java/com/ilboudofabrice/domain/ShoppingCartItem.java

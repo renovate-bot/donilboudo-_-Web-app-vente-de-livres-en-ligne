@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+    <context:component-scan base-package="com.ilboudofabrice.controller" />
+
+    <!-- Enables the Spring MVC @Controller programming model -->
+    <mvc:annotation-driven />
+    <mvc:resources mapping="/images/**" location="classpath:/images/" />
+
+    <util:properties id="databaseProperties" location="classpath:/database.properties"/>
+
+    <!-- jdbc:hsqldb:mem:dataSource -->
+    <!--<jdbc:embedded-database id="embededDataSource" type="HSQL">-->
+    <!--<jdbc:script location="classpath:db/sql/create-db.sql" />-->
+    <!--<jdbc:script location="classpath:db/sql/insert-data.sql" />-->
+    <!--</jdbc:embedded-database>-->
+
+    <!--<bean id="jdbcTemplate"-->
+    <!--class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate" >-->
+    <!--<constructor-arg ref="dataSource" />-->
+    <!--</bean>-->
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${db.driver}" />
+        <property name="url" value="${db.url}" />
+        <property name="username" value="${db.username}" />
+        <property name="password" value="${db.password}" />
+    </bean>
+
+    <!-- Hibernate 5 SessionFactory Bean definition -->
+    <bean id="hibernate5AnnotatedSessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="annotatedClasses">
+            <list>
+                <value>com.ilboudofabrice.domain.Book</value>
+                <value>com.ilboudofabrice.domain.ShoppingCartItem</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="maxwait">10000</prop>
+                <prop key="maxidle">25</prop>
+                <prop key="minidle">5</prop>
+                <prop key="hibernate.cache.use_second_level_cache">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="bookDAO" class="com.ilboudofabrice.dao.impl.BookDAOImpl">
+        <property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory" />
+    </bean>
+    <bean id="bookService" class="com.ilboudofabrice.service.impl.BookServiceImpl">
+        <property name="bookDAO" ref="bookDAO"/>
+    </bean>
+
+    <bean id="shoppingCartDAO" class="com.ilboudofabrice.dao.impl.ShoppingCartDAOImpl">
+        <property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory" />
+    </bean>
+    <bean id="shoppingCartService" class="com.ilboudofabrice.service.impl.ShoppingCartServiceImpl">
+        <property name="shoppingCartDAO" ref="shoppingCartDAO"/>
+    </bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+        <property name="prefix" value="/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <bean id="dbProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:database.properties" />
+    </bean>
+
+</beans>
