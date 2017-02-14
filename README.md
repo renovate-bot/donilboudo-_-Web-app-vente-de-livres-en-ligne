@@ -11,12 +11,12 @@ Nous utilisons les technologies suivants:
   3.importer le projet dans votre IDE
   
  Prerequis:
-    1. Installer une base de donnee MySQL et demarrer service avec les informations suivants:
+    1.Installer une base de donnee MySQL et demarrer service avec les informations suivants:
         port:8889
         user:root
         password:root
       
-    2. Excecuter les sql suivants pour initialiser la base de donnee:
+    2.Excecuter les sql suivants pour initialiser la base de donnee:
       CREATE DATABASE bookStore;
     
       CREATE TABLE `BOOK` (
@@ -84,4 +84,4 @@ Nous utilisons les technologies suivants:
     );
     
     
-  3. Deployer mainteant l'application sur un serveur comme Tomcat
+  3.Deployer mainteant l'application sur un serveur comme Tomcat
